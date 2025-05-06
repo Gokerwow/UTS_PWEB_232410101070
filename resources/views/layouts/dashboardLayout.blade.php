@@ -8,7 +8,7 @@
 
 </head>
 <body>
-    <x-sidebar :username="$username" />
+    <x-sidebar :username="$username" :password="$password"/>
 
     <div class="w-full h-auto flex">
         <main class="ml-70 px-10 py-5 flex flex-col gap-5 w-full h-full bg-[#2e3139] text-white">

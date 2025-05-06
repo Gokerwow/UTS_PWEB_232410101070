@@ -199,14 +199,25 @@ class PageController extends Controller
     }
 
     public function showHomepage(Request $request) {
+        $pageTitles = $this->getPageTitles();
+        $pageTitle = 'Profile';
+        $users = $this->getUsers();
+        $streamingData = $this->getStreamingData();
+        $recentActivities = $this->getRecentActivities($users);
         $username = $request->query('username');
-        return view('homepage', compact('username'));
+        $password = $request->query('password');
+        return view('homepage', compact('username', 'password', 'streamingData', 'recentActivities', 'pageTitles', "pageTitle"));
     }
 
     public function showProfile(Request $request) {
+        $pageTitles = $this->getPageTitles();
+        $pageTitle = 'Profile';
+        $users = $this->getUsers();
+        $streamingData = $this->getStreamingData();
+        $recentActivities = $this->getRecentActivities($users);
         $username = $request->query('username');
         $password = $request->query('password');
-        return view('profile', compact('username', 'password'));
+        return view('profile', compact('username', 'password', 'streamingData', 'recentActivities', 'pageTitles', "pageTitle"));
     }
 
     public function showPengelolaan(Request $request) {
@@ -216,7 +227,8 @@ class PageController extends Controller
         $streamingData = $this->getStreamingData();
         $recentActivities = $this->getRecentActivities($users);
         $username = $request->query('username');
-        return view('pengelolaan', compact('username', 'streamingData', 'recentActivities', 'pageTitles', "pageTitle"));
+        $password = $request->query('password');
+        return view('pengelolaan', compact('username', 'password', 'streamingData', 'recentActivities', 'pageTitles', "pageTitle"));
     }
 
     public function showDashboard(Request $request) {
@@ -226,7 +238,8 @@ class PageController extends Controller
         $streamingData = $this->getStreamingData();
         $recentActivities = $this->getRecentActivities($users);
         $username = $request->query('username');
-        return view('dashboard', compact('username', 'streamingData', 'recentActivities', 'pageTitles', "pageTitle"));
+        $password = $request->query('password');
+        return view('dashboard', compact('username', 'password', 'streamingData', 'recentActivities', 'pageTitles', "pageTitle"));
     }
 
     public function login(Request $request) {
@@ -234,19 +247,8 @@ class PageController extends Controller
             'username'=>'required|min:3|max:10',
             'password'=>'required|min:4|max:20'
         ]);
-
         $username = $request->input('username');
         $password = $request->input('password');
-
-        // $usernameDB = 'goker';
-        // $passwordDB = '1234';
-
-        return redirect()->route('dashboard', compact('username'));
-
-        // if ($username == $validasi['username'] && $password == $validasi['password']) {
-        //     return redirect()->route('homepage', ['username' => $validasi['username']]);
-        // } else {
-        //     return redirect()->back()->with('error', 'Username atau password salah!');
-        // }
+        return redirect()->route('dashboard', compact('username', 'password'));
     }
 }
