@@ -199,14 +199,12 @@ class PageController extends Controller
     }
 
     public function showHomepage(Request $request) {
-        $pageTitles = $this->getPageTitles();
-        $pageTitle = 'Profile';
         $users = $this->getUsers();
         $streamingData = $this->getStreamingData();
         $recentActivities = $this->getRecentActivities($users);
         $username = $request->query('username');
         $password = $request->query('password');
-        return view('homepage', compact('username', 'password', 'streamingData', 'recentActivities', 'pageTitles', "pageTitle"));
+        return view('homepage', compact('username', 'password', 'streamingData', 'recentActivities'));
     }
 
     public function showProfile(Request $request) {
